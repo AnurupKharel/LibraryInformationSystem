@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+	color: #1c1c2c ;
+	margin: 0;
+	padding: 0;
+	
+
+	
+}
+
+main {
+	display:flex;
+
+	background-size: cover;
+	
+
+	width: 100vw;
+	padding-top: 130px;
+	align-items:center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.profile-box {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #1c1c2c;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input[readonly] {
+  background-color: #f4f4f4;
+  color: #555;
+  cursor: not-allowed;
+}
+
+.save-btn {
+  background-color: #a4926d;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  background-color: #8a7a56;
+}

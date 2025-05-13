@@ -13,11 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/anuru/OneDrive/Documents/mysql-connector-j-9.3.0/mysql-connector-j-9.3.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="D:/BSC hons AI/Year 2/Data Structure and Specialist Programming/jstl jar files/jakarta.activation-2.0.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -44,6 +39,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/BSC hons AI/Year 2/Data Structure and Specialist Programming/jstl jar files/jakarta.xml.bind-api-3.0.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/anuru/OneDrive/Documents/mysql-connector-j-9.3.0/mysql-connector-j-9.3.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

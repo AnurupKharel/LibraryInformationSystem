@@ -14,7 +14,7 @@
 <body>
 
   <div class="login-container">
-    <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="login-logo" alt="Logo" />
+    <img src="${contextPath}/resources/images/logo.png" class="login-logo" alt="Logo" />
 
     <form class="login-form" action="login" method="post">
       <h2>Welcome Back</h2>

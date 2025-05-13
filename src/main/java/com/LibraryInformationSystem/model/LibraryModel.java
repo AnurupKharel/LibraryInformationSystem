@@ -4,19 +4,29 @@ public class LibraryModel {
 	private int libraryId;
 	private String libraryName;
 	private String location;
-	private String library_email;
-	private int library_contact;
-	private String total_books;
+	private String libraryEmail;
+	private String libraryContact;
+	private int totalBooks;
 	
-	public LibraryModel(int libraryId, String libraryName, String location, String library_email, int library_contact,
-			String total_books) {
+	public LibraryModel(int libraryId, String libraryName, String location, String libraryEmail, String libraryContact,
+			int totalBooks) {
 		super();
 		this.libraryId = libraryId;
 		this.libraryName = libraryName;
 		this.location = location;
-		this.library_email = library_email;
-		this.library_contact = library_contact;
-		this.total_books = total_books;
+		this.libraryEmail = libraryEmail;
+		this.libraryContact = libraryContact;
+		this.totalBooks = totalBooks;
+	}
+	
+	public LibraryModel(String libraryName, String location, String libraryEmail, String libraryContact,
+			int totalBooks) {
+		super();
+		this.libraryName = libraryName;
+		this.location = location;
+		this.libraryEmail = libraryEmail;
+		this.libraryContact = libraryContact;
+		this.totalBooks = totalBooks;
 	}
 	
 	public LibraryModel(String libraryName) {
@@ -47,28 +57,28 @@ public class LibraryModel {
 		this.location = location;
 	}
 
-	public String getLibrary_email() {
-		return library_email;
+	public String getLibraryEmail() {
+		return libraryEmail;
 	}
 
-	public void setLibrary_email(String library_email) {
-		this.library_email = library_email;
+	public void setLibraryEmail(String libraryEmail) {
+		this.libraryEmail = libraryEmail;
 	}
 
-	public int getLibrary_contact() {
-		return library_contact;
+	public String getLibraryContact() {
+		return libraryContact;
 	}
 
-	public void setLibrary_contact(int library_contact) {
-		this.library_contact = library_contact;
+	public void setLibraryContact(String libraryContact) {
+		this.libraryContact = libraryContact;
 	}
 
-	public String getTotal_books() {
-		return total_books;
+	public int getTotalBooks() {
+		return totalBooks;
 	}
 
-	public void setTotal_books(String total_books) {
-		this.total_books = total_books;
+	public void setTotalBooks(int totalBooks) {
+		this.totalBooks = totalBooks;
 	}
 	
 	

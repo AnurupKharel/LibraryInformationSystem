@@ -63,9 +63,11 @@ public class LoginController extends HttpServlet {
 
 		if (loginStatus != null && loginStatus) {
 			SessionUtil.setAttribute(request, "username", username);
+
 			if (userModel.getIsAdmin()) {
 				CookieUtil.addCookie(response, "role", "admin", 5 * 30 * 6);
-				response.sendRedirect(request.getContextPath() + "/dashboard"); // Redirect to /home
+				
+				response.sendRedirect(request.getContextPath() + "/dashboard"); // Redirect to /dashboard
 			} else {
 				CookieUtil.addCookie(response, "role", "customer", 5 * 30 * 6);
 				response.sendRedirect(request.getContextPath() + "/home"); // Redirect to /home
@@ -73,7 +75,8 @@ public class LoginController extends HttpServlet {
 		} else {
 			handleLoginFailure(request, response, loginStatus);
 		}
-	}
+
+		}
 	
 	/**
 	 * Handles login failures by setting attributes and forwarding to the login

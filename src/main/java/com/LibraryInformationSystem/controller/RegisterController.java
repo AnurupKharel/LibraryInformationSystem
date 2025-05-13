@@ -58,7 +58,7 @@ public class RegisterController extends HttpServlet {
 				return;
 				
 			}
-			
+			                              
 
 			UserModel userModel = extractUserModel(request);
 			Boolean isAdded = registerService.addUser(userModel);

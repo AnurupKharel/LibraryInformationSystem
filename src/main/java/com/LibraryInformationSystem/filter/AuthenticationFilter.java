@@ -3,6 +3,7 @@ package com.LibraryInformationSystem.filter;
 import jakarta.servlet.Filter;
 
 
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
@@ -33,6 +34,7 @@ public class AuthenticationFilter extends HttpFilter implements Filter {
 	private static final String PROFILE = "/profile";
 	private static final String CONTACT = "/contact";
 	private static final String BROWSE = "/browse";
+	private static final String LOGOUT = "/logout";
   
     /**
      * @see HttpFilter#HttpFilter()
@@ -70,21 +72,21 @@ public class AuthenticationFilter extends HttpFilter implements Filter {
 				
 				if ("admin".equals(userRole)) {
 					// Admin is logged in
-					if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+					if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(ROOT)) {
 						res.sendRedirect(req.getContextPath() + DASHBOARD);
-					} else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+					} else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(LOGOUT) || uri.endsWith(CONTACT) || uri.endsWith(PROFILE)) {
 						chain.doFilter(request, response);
-					} else if (uri.endsWith(PROFILE) || uri.endsWith(BROWSE)) {
+					} else if (uri.endsWith(BROWSE)) {
 						res.sendRedirect(req.getContextPath() + DASHBOARD);
 					} else {
 						res.sendRedirect(req.getContextPath() + DASHBOARD);
 					}
 				} else if ("customer".equals(userRole)) {
 					// User is logged in
-					if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+					if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(ROOT)) {
 						res.sendRedirect(req.getContextPath() + HOME);
 					} else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(PROFILE)
-							|| uri.endsWith(CONTACT)) {
+							|| uri.endsWith(CONTACT) || uri.endsWith(LOGOUT)) {
 						chain.doFilter(request, response);
 					} else if (uri.endsWith(DASHBOARD)) {
 						res.sendRedirect(req.getContextPath() + HOME);
