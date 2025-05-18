@@ -30,7 +30,7 @@ body {
 
 .register-logo {
   width: 200px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .register-form h2 {
@@ -99,4 +99,10 @@ body {
 
 .alt-option a:hover {
   text-decoration: underline;
+}
+
+.error-message{
+	color: red;
+	font-size:0.9rem;
+	font-weight: bold;
 }

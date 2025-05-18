@@ -63,6 +63,10 @@ public class LoginController extends HttpServlet {
 
 		if (loginStatus != null && loginStatus) {
 			SessionUtil.setAttribute(request, "username", username);
+			int userId = loginService.getUserIdByName(username);
+			SessionUtil.setAttribute(request, "userId", userId);
+			
+
 
 			if (userModel.getIsAdmin()) {
 				CookieUtil.addCookie(response, "role", "admin", 5 * 30 * 6);

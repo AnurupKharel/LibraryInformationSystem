@@ -26,9 +26,9 @@ public class ValidationUtil {
         return email != null && Pattern.matches(emailRegex, email);
     }
 
-    // 5. Validate if a number is of 10 digits and starts with 98
+    // 5. Validate if a number is of 10 digits and starts with 98 or 97
     public static boolean isValidPhoneNumber(String number) {
-        return number != null && number.matches("^98\\d{8}$");
+        return number != null && number.matches("^(98|97)\\d{8}$");
     }
 
     // 6. Validate if a password is composed of at least 1 capital letter, 1 number, and 1 symbol
@@ -49,6 +49,16 @@ public class ValidationUtil {
     // 8. Validate if password and retype password match
     public static boolean doPasswordsMatch(String password, String retypePassword) {
         return password != null && password.equals(retypePassword);
+    }
+    
+    // 8. Validate realistic total books count
+    public static boolean isValidTotalBooks(String totalBooksStr) {
+    	try {
+            int totalBooks = Integer.parseInt(totalBooksStr);
+            return totalBooks >= 0 && totalBooks <= 1000000; 
+        } catch (NumberFormatException e) {
+            return false; 
+        }
     }
 
 }

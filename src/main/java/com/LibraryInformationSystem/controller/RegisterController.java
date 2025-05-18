@@ -6,11 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import jakarta.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 
 import com.LibraryInformationSystem.model.UserModel;
 import com.LibraryInformationSystem.service.RegisterService;
+import com.LibraryInformationSystem.util.ImageUtil;
 import com.LibraryInformationSystem.util.PasswordUtil;
 import com.LibraryInformationSystem.util.ValidationUtil;
 
@@ -28,6 +30,7 @@ import com.LibraryInformationSystem.util.ValidationUtil;
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private final ImageUtil imageUtil = new ImageUtil();
 	private final RegisterService registerService = new RegisterService();
        
     /**
@@ -61,15 +64,30 @@ public class RegisterController extends HttpServlet {
 			                              
 
 			UserModel userModel = extractUserModel(request);
-			Boolean isAdded = registerService.addUser(userModel);
+			Boolean usernameAdded = registerService.checkUsername(userModel.getUsername());
 			
+            if(usernameAdded != null && usernameAdded) {
+                handleError(request,response,"Username already taken");
+                return;
+            }
+			Boolean isAdded = registerService.addUser(userModel);
+
 
 			if (isAdded == null) {
 				
 				handleError(request, response, "Our server is under maintenance. Please try again later!");
 			}
 			else if(isAdded){
-				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
+				try {
+					if (uploadImage(request)) {
+						handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
+					} else {
+						handleError(request, response, "Could not upload the image. Please try again later!");
+					}
+				} catch (IOException | ServletException e) {
+					handleError(request, response, "An error occurred while uploading the image. Please try again later!");
+					e.printStackTrace(); // Log the exception
+				}
 			}
 			else {
 				handleError(request, response, "Could not register your account. Please try again later!");
@@ -109,6 +127,14 @@ public class RegisterController extends HttpServlet {
 			return "Password must be at least 8 characters long, with 1 uppercase letter, 1 number, and 1 symbol.";
 		if (!ValidationUtil.doPasswordsMatch(password, retypePassword))
 			return "Passwords do not match.";
+		
+		try {
+			Part image = req.getPart("image");
+			if (!ValidationUtil.isValidImageExtension(image))
+				return "Invalid image format. Only jpg, jpeg, png, and gif are allowed.";
+		} catch (IOException | ServletException e) {
+			return "Error handling image file. Please ensure the file is valid.";
+		}
 
 		
 		return null; // All validations passed
@@ -120,14 +146,25 @@ public class RegisterController extends HttpServlet {
 		String userEmail = req.getParameter("userEmail");
 
 		String password = req.getParameter("password");
+		Part image = req.getPart("image");
+
 
 		// Assuming password validation is already done in validateRegistrationForm
 		password = PasswordUtil.encrypt(username, password);
+		String imageName = imageUtil.getImageNameFromPart(image);
 		
 		
 
-		return new UserModel(fullName, username, userEmail, password);
+
 		
+
+		return new UserModel(fullName, username, userEmail, password, imageName);
+		
+	}
+	
+	private boolean uploadImage(HttpServletRequest req) throws IOException, ServletException {
+		Part image = req.getPart("image");
+		return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "user");
 	}
 	
 	private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)

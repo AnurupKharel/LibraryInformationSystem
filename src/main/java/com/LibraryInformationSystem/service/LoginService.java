@@ -1,12 +1,12 @@
 package com.LibraryInformationSystem.service;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.LibraryInformationSystem.config.DbConfig;
+import com.LibraryInformationSystem.model.LibraryModel;
 import com.LibraryInformationSystem.model.UserModel;
 import com.LibraryInformationSystem.util.PasswordUtil;
 
@@ -45,23 +45,17 @@ public class LoginService {
 			return null;
 		}
 
-
 		String query = "SELECT username, password, is_admin FROM user WHERE username = ?";
 		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
 			stmt.setString(1, userModel.getUsername());
 			ResultSet result = stmt.executeQuery();
 
-
-
 			if (result.next()) {
-				userModel.setIsAdmin(result.getBoolean("is_admin"));			
+				userModel.setIsAdmin(result.getBoolean("is_admin"));
 				return validatePassword(result, userModel);
-				
-				
 
 			}
 		} catch (SQLException e) {
-			
 
 			e.printStackTrace();
 			return null;
@@ -73,8 +67,8 @@ public class LoginService {
 	/**
 	 * Validates the password retrieved from the database.
 	 *
-	 * @param result       the ResultSet containing the username and password from
-	 *                     the database
+	 * @param result    the ResultSet containing the username and password from the
+	 *                  database
 	 * @param userModel the StudentModel object containing user credentials
 	 * @return true if the passwords match, false otherwise
 	 * @throws SQLException if a database access error occurs
@@ -85,5 +79,30 @@ public class LoginService {
 
 		return dbUsername.equals(userModel.getUsername())
 				&& PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword());
+	}
+
+	public int getUserIdByName(String username) {
+		if (isConnectionError) {
+			System.out.println("Connection Error!");
+			return -1;
+		}
+
+		String query = "SELECT user_id FROM user WHERE username = ?";
+		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+			stmt.setString(1, username); // Set the library ID parameter
+			ResultSet result = stmt.executeQuery();
+
+			if (result.next()) {
+
+				return (result.getInt("user_id"));
+			} else {
+				// Library with the given ID was not found
+				return -1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Log and handle exceptions
+			return -1; // Return null on error
+		}
 	}
 }

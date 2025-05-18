@@ -27,11 +27,88 @@
 			<h1>Admin Dashboard</h1>
 
 			<div class="stats-section">
-				<div class="stat-card">Stat 1</div>
-				<div class="stat-card">Stat 2</div>
-				<div class="stat-card">Stat 3</div>
-				<div class="stat-card">Stat 4</div>
-				<div class="stat-card">Stat 5</div>
+				<div class="stat-card small">
+					<h2>Total Users</h2>
+					<br>
+					<p>${userCount != -1 ? userCount : 'Error'}</p>
+				</div>
+				<div class="stat-card small">
+				
+					<h2>Total Libraries</h2>
+					<br>
+					<p>${libraryCount != -1 ? libraryCount : 'Error'}</p>
+				</div>
+				<div class="stat-card small">
+					<h2>Highest Rated Library</h2>
+					<br>
+					<c:if test="${not empty highestRatedLibrary}">
+						<p>${highestRatedLibrary.key}</p>
+						<p>
+							"${highestRatedLibrary.value}"
+							/ 5
+						</p>
+					</c:if>
+					<c:if test="${empty highestRatedLibrary}">
+						<p>No libraries reviewed yet.</p>
+					</c:if>
+				</div>
+				<div class="stat-card small">
+					<h2>Top Reviewing Users</h2>
+					<c:if test="${not empty topReviewingUsers}">
+						<table class="styled-table">
+							<thead>
+								<tr>
+									<th>Username</th>
+									<th>Review Count</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="userEntry" items="${topReviewingUsers}">
+									<tr>
+										<td>${userEntry.key}</td>
+										<td>${userEntry.value}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
+					<c:if test="${empty topReviewingUsers}">
+						<p>No top reviewers yet.</p>
+					</c:if>
+				</div>
+
+				<div class="stat-card wide">
+					<h2>Recent Reviews</h2>
+					<c:if test="${not empty recentReviews}">
+						<table class="styled-table">
+							<thead>
+								<tr>
+									<th>User</th>
+									<th>Rating</th>
+									<th>Message</th>
+									<th>Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="review" items="${recentReviews}">
+									<tr>
+										<td>${review.username}</td>
+										<td>⭐ ${review.rating}/5</td>
+										<td>${review.reviewMessage}</td>
+										<td><${review.createdTime}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
+					<c:if test="${empty recentReviews}">
+						<p>No recent reviews yet.</p>
+					</c:if>
+				</div>
+
+				
+
+				
 			</div>
 
 			<h2>Manage Libraries</h2>
@@ -63,8 +140,7 @@
 								<td>${library.totalBooks}</td>
 								<td>
 									<form action="dashboard" method="get">
-										<input type="hidden" name="action" value="edit" />
-										<input
+										<input type="hidden" name="action" value="edit" /> <input
 											type="hidden" name="libraryId" value="${library.libraryId}" />
 										<button class="edit-btn">Edit</button>
 									</form>
@@ -77,9 +153,6 @@
 								</td>
 							</tr>
 						</c:forEach>
-
-
-
 					</tbody>
 				</table>
 
@@ -98,7 +171,7 @@
 						<%-- Indicate add action --%>
 					</c:if>
 
-					
+
 					<input type="text" placeholder="Library Name" name="name"
 						value="${editingLibrary != null ? editingLibrary.libraryName : ''}" />
 					<input type="text" placeholder="Location" name="location"
@@ -110,7 +183,16 @@
 					<input type="text" placeholder="Total Books" name="totalBooks"
 						value="${editingLibrary != null ? editingLibrary.totalBooks : ''}" />
 
-					
+					<!-- Display error message if available -->
+					<c:if test="${not empty error}">
+						<p class="error-message">${error}</p>
+					</c:if>
+
+					<!-- Display success message if available -->
+					<c:if test="${not empty success}">
+						<p class="success-message">${success}</p>
+					</c:if>
+					<br>
 					<button type="submit" class="add-btn">
 						<c:if test="${editingLibrary != null}">Update Library</c:if>
 						<c:if test="${editingLibrary == null}">Add Library</c:if>

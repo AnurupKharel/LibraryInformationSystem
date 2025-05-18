@@ -7,8 +7,9 @@ public class UserModel {
 	private String userEmail;
 	private boolean isAdmin;
 	private String password;
+	private String imageUrl;
 	
-	public UserModel(int userId, String fullName, String username, String userEmail, boolean isAdmin, String password) {
+	public UserModel(int userId, String fullName, String username, String userEmail, boolean isAdmin, String password, String imageUrl) {
 		super();
 		this.userId = userId;
 		this.fullName = fullName;
@@ -16,19 +17,45 @@ public class UserModel {
 		this.userEmail = userEmail;
 		this.isAdmin = isAdmin;
 		this.password = password;
-	}
+		this.imageUrl = imageUrl;
+		}
 	
-	public UserModel(String fullName, String username, String userEmail, String password) {
+	public UserModel(String fullName, String username, String userEmail, String password, String imageUrl) {
 
 		this.fullName = fullName;
 		this.username = username;
 		this.userEmail = userEmail;
 		this.password = password;
+		this.imageUrl = imageUrl;
+
 	}
 	
-	public UserModel(String username, String pasword) {
+	public UserModel(String fullName, String username, String userEmail, String imageUrl) {
+
+		this.fullName = fullName;
 		this.username = username;
-		this.password = pasword;
+		this.userEmail = userEmail;
+		this.imageUrl = imageUrl;
+
+	}
+	
+	public UserModel(String fullName, String username, String userEmail) {
+
+		this.fullName = fullName;
+		this.username = username;
+		this.userEmail = userEmail;
+
+	}
+
+	
+	public UserModel(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
+	public UserModel(String username, String imageUrl, int a) {
+		this.username = username;
+		this.imageUrl = imageUrl;
 	}
 
 	public int getUserId() {
@@ -59,7 +86,7 @@ public class UserModel {
 		return userEmail;
 	}
 
-	public void setUser_email(String userEmail) {
+	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
 
@@ -77,6 +104,14 @@ public class UserModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

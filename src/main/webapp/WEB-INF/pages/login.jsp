@@ -15,6 +15,17 @@
 
   <div class="login-container">
     <img src="${contextPath}/resources/images/logo.png" class="login-logo" alt="Logo" />
+    
+    <!-- Display error message if available -->
+		<c:if test="${not empty error}">
+			<p class="error-message">${error}</p>
+		</c:if>
+
+		<!-- Display success message if available -->
+		<c:if test="${not empty success}">
+			<p class="success-message">${success}</p>
+		</c:if>
+		<br>
 
     <form class="login-form" action="login" method="post">
       <h2>Welcome Back</h2>

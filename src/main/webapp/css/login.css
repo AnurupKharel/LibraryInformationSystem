@@ -122,3 +122,15 @@ body {
 .alt-option a:hover{
 	text-decoration: underline;
 }
+
+.error-message{
+	color: red;
+	font-size:0.9rem;
+	font-weight: bold;
+}
+
+.success-message{
+	color: green;
+	font-size:0.9rem;
+	font-weight: bold;
+}
